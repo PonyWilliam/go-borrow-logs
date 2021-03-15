@@ -1,6 +1,6 @@
 package server
 
-import "borrowLogs/domain/repository"
+import "github.com/PonyWilliam/go-borrow-logs/domain/repository"
 
 /*
 	service borrowLogs {

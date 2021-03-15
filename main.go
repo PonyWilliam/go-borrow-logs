@@ -3,6 +3,8 @@ package main
 import (
 	"borrowLogs/domain/repository"
 	common "github.com/PonyWilliam/go-common"
+	"github.com/PonyWilliam/go-borrow-logs/domain/server"
+	Proto "github.com/PonyWilliam/go-borrow-logs/proto"
 	"github.com/jinzhu/gorm"
 	"github.com/micro/go-micro/v2"
 	log "github.com/micro/go-micro/v2/logger"
@@ -48,7 +50,7 @@ func main() {
 
 	// Initialise service
 	service.Init()
-	server :=
+	err := Proto.RegisterBorrowHandler()
 	// Register Handler
 	//_ = borrowLogs.RegisterBorrowLogsHandler(service.Server(), new(handler))
 

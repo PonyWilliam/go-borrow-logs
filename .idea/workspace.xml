@@ -2,29 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8654dfb1-f62f-4378-bb72-a9af81e3402d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/borrowLogs.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/model/logs.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/repository/logs.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/domain/server/logs.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/generate.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handler/borrowLogs.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/plugin.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proto/borrowLogs.pb.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proto/borrowLogs.pb.micro.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/proto/borrowLogs.proto" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../works/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../WorkWeb" beforeDir="false" afterPath="$PROJECT_DIR$/../WorkWeb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../borrow/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../borrow/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/repository/logs.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/repository/logs.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domain/server/logs.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/server/logs.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../workApi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../workApi/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../workApi/handler/workApi.go" beforeDir="false" afterPath="$PROJECT_DIR$/../workApi/handler/workApi.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../workApi/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../workApi/main.go" afterDir="false" />
@@ -51,7 +38,7 @@
   </component>
   <component name="GOROOT" url="file:///usr/local/go" />
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />

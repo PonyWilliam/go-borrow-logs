@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"borrowLogs/domain/model"
+	"github.com/PonyWilliam/go-borrow-logs/domain/model"
 	"github.com/jinzhu/gorm"
 )
 type ILogs interface {
