@@ -1,4 +1,4 @@
-module borrowLogs
+module github.com/PonyWilliam/go-borrow-logs
 
 go 1.14
 
