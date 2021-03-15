@@ -12,11 +12,11 @@ type IBorrowLogsService interface {
 	ToOther(ReqWID int64,RspWID int64,PID int64,Reason string)error
 	BossConfirm(ID int64)error
 }
-func NewLogsService(log repository.BorrowLogsRepository)IBorrowLogsService{
+func NewLogsService(log repository.ILogs)IBorrowLogsService{
 	return &LogsServices{log}
 }
 type LogsServices struct{
-	Logs repository.BorrowLogsRepository
+	Logs repository.ILogs
 }
 func(l *LogsServices)ToOther(ReqWID int64,RspWID int64,PID int64,Reason string)error{
 	return l.Logs.ToOther(ReqWID,RspWID,PID,Reason)

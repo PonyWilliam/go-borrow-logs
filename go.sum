@@ -31,8 +31,6 @@ github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym
 github.com/Microsoft/go-winio v0.4.15-0.20190919025122-fc70bd9a86b5/go.mod h1:tTuCMEN+UleMWgg9dVx4Hu52b1bJo+59jBh3ajtinzw=
 github.com/Microsoft/hcsshim v0.8.7-0.20191101173118-65519b62243c/go.mod h1:7xhjOwRV2+0HXGmM0jxaEu+ZiXJFoVZOTfL/dmqbrD8=
 github.com/OpenDNS/vegadns2client v0.0.0-20180418235048-a3fa4a771d87/go.mod h1:iGLljf5n9GjT6kc0HBvyI1nOKnGQbNB66VzSNbK5iks=
-github.com/PonyWilliam/go-borrow v0.0.0-20210228070905-47ae3647229a h1:zJ0qZPwbHOM+Tyw4AhQGR3KjMgFgHv2Y2cf9wHcJV9w=
-github.com/PonyWilliam/go-borrow v0.0.0-20210228070905-47ae3647229a/go.mod h1:up4Fc+FLXYP2KD7XOfyBF250Rxv3SzkoNG6sS8NJ7EM=
 github.com/PonyWilliam/go-common v0.0.0-20210208041853-3307a2394f4c h1:Y8D7bVZpyc2BADmOT2mIDK8M3Klh0apwoulBpjZUd+Y=
 github.com/PonyWilliam/go-common v0.0.0-20210208041853-3307a2394f4c/go.mod h1:xMCdv0SxQM+zPBvQPOrVPglF7Bwl541f86931dYvRZ4=
 github.com/PuerkitoBio/goquery v1.5.1/go.mod h1:GsLWisAFVj4WgDibEWF4pvYnkVQBpKBKeU+7zCJoLcc=
