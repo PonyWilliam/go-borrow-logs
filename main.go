@@ -2,10 +2,11 @@ package main
 
 import (
 	"github.com/PonyWilliam/go-borrow-logs/domain/repository"
-	common "github.com/PonyWilliam/go-common"
 	"github.com/PonyWilliam/go-borrow-logs/domain/server"
 	"github.com/PonyWilliam/go-borrow-logs/handler"
 	Proto "github.com/PonyWilliam/go-borrow-logs/proto"
+	common "github.com/PonyWilliam/go-common"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"github.com/micro/go-micro/v2"
 	log "github.com/micro/go-micro/v2/logger"

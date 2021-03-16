@@ -24,8 +24,8 @@ func(l *Logs)ToOther(ctx context.Context,req *borrowLogs.ReqToOther,rsp *borrowL
 	rsp.Status = true
 	return nil
 }
-func(l *Logs)BossConfirm(ctx context.Context,req *borrowLogs.Req_Boss_Confirm,rsp *borrowLogs.Rsp_All)error{
-	err := l.LogsServices.BossConfirm(req.ID)
+func(l *Logs)Confirm(ctx context.Context,req *borrowLogs.Req_Confirm,rsp *borrowLogs.Rsp_All)error{
+	err := l.LogsServices.Confirm(req.ID)
 	if err!=nil{
 		rsp.Message = err.Error()
 		rsp.Status = false

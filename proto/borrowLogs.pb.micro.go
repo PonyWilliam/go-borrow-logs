@@ -51,7 +51,7 @@ func NewBorrowLogsEndpoints() []*api.Endpoint {
 
 type BorrowLogsService interface {
 	ToOther(ctx context.Context, in *ReqToOther, opts ...client.CallOption) (*Rsp_All, error)
-	BossConfirm(ctx context.Context, in *Req_Boss_Confirm, opts ...client.CallOption) (*Rsp_All, error)
+	Confirm(ctx context.Context, in *Req_Confirm, opts ...client.CallOption) (*Rsp_All, error)
 }
 
 type borrowLogsService struct {
@@ -76,8 +76,8 @@ func (c *borrowLogsService) ToOther(ctx context.Context, in *ReqToOther, opts ..
 	return out, nil
 }
 
-func (c *borrowLogsService) BossConfirm(ctx context.Context, in *Req_Boss_Confirm, opts ...client.CallOption) (*Rsp_All, error) {
-	req := c.c.NewRequest(c.name, "BorrowLogs.boss_confirm", in)
+func (c *borrowLogsService) Confirm(ctx context.Context, in *Req_Confirm, opts ...client.CallOption) (*Rsp_All, error) {
+	req := c.c.NewRequest(c.name, "BorrowLogs.confirm", in)
 	out := new(Rsp_All)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -90,13 +90,13 @@ func (c *borrowLogsService) BossConfirm(ctx context.Context, in *Req_Boss_Confir
 
 type BorrowLogsHandler interface {
 	ToOther(context.Context, *ReqToOther, *Rsp_All) error
-	BossConfirm(context.Context, *Req_Boss_Confirm, *Rsp_All) error
+	Confirm(context.Context, *Req_Confirm, *Rsp_All) error
 }
 
 func RegisterBorrowLogsHandler(s server.Server, hdlr BorrowLogsHandler, opts ...server.HandlerOption) error {
 	type borrowLogs interface {
 		ToOther(ctx context.Context, in *ReqToOther, out *Rsp_All) error
-		BossConfirm(ctx context.Context, in *Req_Boss_Confirm, out *Rsp_All) error
+		Confirm(ctx context.Context, in *Req_Confirm, out *Rsp_All) error
 	}
 	type BorrowLogs struct {
 		borrowLogs
@@ -113,6 +113,6 @@ func (h *borrowLogsHandler) ToOther(ctx context.Context, in *ReqToOther, out *Rs
 	return h.BorrowLogsHandler.ToOther(ctx, in, out)
 }
 
-func (h *borrowLogsHandler) BossConfirm(ctx context.Context, in *Req_Boss_Confirm, out *Rsp_All) error {
-	return h.BorrowLogsHandler.BossConfirm(ctx, in, out)
+func (h *borrowLogsHandler) Confirm(ctx context.Context, in *Req_Confirm, out *Rsp_All) error {
+	return h.BorrowLogsHandler.Confirm(ctx, in, out)
 }

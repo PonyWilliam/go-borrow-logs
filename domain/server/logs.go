@@ -10,7 +10,7 @@ import "github.com/PonyWilliam/go-borrow-logs/domain/repository"
 */
 type IBorrowLogsService interface {
 	ToOther(ReqWID int64,RspWID int64,PID int64,Reason string)error
-	BossConfirm(ID int64)error
+	Confirm(ID int64)error
 }
 func NewLogsService(log repository.ILogs)IBorrowLogsService{
 	return &LogsServices{log}
@@ -21,6 +21,6 @@ type LogsServices struct{
 func(l *LogsServices)ToOther(ReqWID int64,RspWID int64,PID int64,Reason string)error{
 	return l.Logs.ToOther(ReqWID,RspWID,PID,Reason)
 }
-func(l *LogsServices)BossConfirm(ID int64)error{
+func(l *LogsServices)Confirm(ID int64)error{
 	return l.Logs.Confirm(ID)
 }

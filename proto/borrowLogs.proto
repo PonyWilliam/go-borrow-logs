@@ -13,7 +13,7 @@ option go_package = "proto;borrowLogs";
 
 service borrowLogs {
 	rpc to_other(Req_to_other)returns(Rsp_All);
-	rpc boss_confirm(Req_Boss_Confirm)returns(Rsp_All);
+	rpc confirm(Req_Confirm)returns(Rsp_All);
 }
 message Req_to_other{
 	int64 ReqWID = 1;
@@ -21,7 +21,7 @@ message Req_to_other{
 	int64 PID = 3;//产品ID
 	string Reason = 4;
 }
-message Req_Boss_Confirm{
+message Req_Confirm{
 	int64 ID = 1;//根据ID确认同意
 }
 message Rsp_All{
