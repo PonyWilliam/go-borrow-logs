@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/PonyWilliam/go-borrow-logs/domain/server"
 	borrowLogs "github.com/PonyWilliam/go-borrow-logs/proto"
+	"github.com/PonyWilliam/go-common"
 )
 
 type Logs struct{
@@ -33,5 +34,53 @@ func(l *Logs)Confirm(ctx context.Context,req *borrowLogs.Req_Confirm,rsp *borrow
 	}
 	rsp.Message = "成功"
 	rsp.Status = true
+	return nil
+}
+func(l *Logs)FindAll(ctx context.Context,req *borrowLogs.Req_Null,rsp *borrowLogs.RspLogs)error{
+	res,err := l.LogsServices.FindAll()
+	if err != nil{
+		rsp.Logs = nil
+		return nil
+	}
+	temp := &borrowLogs.Rsp_Log{}
+	for _,v := range res{
+		_ = common.SwapTo(v, temp)
+		rsp.Logs = append(rsp.Logs,temp)
+	}
+	return nil
+}
+func(l *Logs)FindByWID(ctx context.Context,req *borrowLogs.Req_Wid,rsp *borrowLogs.RspLogs)error{
+	res,err := l.LogsServices.FindByWID(req.Wid)
+	if err != nil{
+		rsp.Logs = nil
+		return nil
+	}
+	temp := &borrowLogs.Rsp_Log{}
+	for _,v := range res{
+		_ = common.SwapTo(v, temp)
+		rsp.Logs = append(rsp.Logs,temp)
+	}
+	return nil
+}
+func(l *Logs)FindByPID(ctx context.Context,req *borrowLogs.Req_Pid,rsp *borrowLogs.RspLogs)error{
+	res,err := l.LogsServices.FindByPID(req.Pid)
+	if err != nil{
+		rsp.Logs = nil
+		return nil
+	}
+	temp := &borrowLogs.Rsp_Log{}
+	for _,v := range res{
+		_ = common.SwapTo(v, temp)
+		rsp.Logs = append(rsp.Logs,temp)
+	}
+	return nil
+}
+func(l *Logs)FindByID(ctx context.Context,req *borrowLogs.Req_Id,rsp *borrowLogs.Rsp_Log)error{
+	res,err := l.LogsServices.FindByID(req.Id)
+	if err != nil{
+		rsp = nil
+		return nil
+	}
+	_ = common.SwapTo(res, rsp)
 	return nil
 }

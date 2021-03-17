@@ -52,6 +52,10 @@ func NewBorrowLogsEndpoints() []*api.Endpoint {
 type BorrowLogsService interface {
 	ToOther(ctx context.Context, in *ReqToOther, opts ...client.CallOption) (*Rsp_All, error)
 	Confirm(ctx context.Context, in *Req_Confirm, opts ...client.CallOption) (*Rsp_All, error)
+	FindAll(ctx context.Context, in *Req_Null, opts ...client.CallOption) (*RspLogs, error)
+	FindByWID(ctx context.Context, in *Req_Wid, opts ...client.CallOption) (*RspLogs, error)
+	FindByPID(ctx context.Context, in *Req_Pid, opts ...client.CallOption) (*RspLogs, error)
+	FindByID(ctx context.Context, in *Req_Id, opts ...client.CallOption) (*Rsp_Log, error)
 }
 
 type borrowLogsService struct {
@@ -86,17 +90,65 @@ func (c *borrowLogsService) Confirm(ctx context.Context, in *Req_Confirm, opts .
 	return out, nil
 }
 
+func (c *borrowLogsService) FindAll(ctx context.Context, in *Req_Null, opts ...client.CallOption) (*RspLogs, error) {
+	req := c.c.NewRequest(c.name, "BorrowLogs.FindAll", in)
+	out := new(RspLogs)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *borrowLogsService) FindByWID(ctx context.Context, in *Req_Wid, opts ...client.CallOption) (*RspLogs, error) {
+	req := c.c.NewRequest(c.name, "BorrowLogs.FindByWID", in)
+	out := new(RspLogs)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *borrowLogsService) FindByPID(ctx context.Context, in *Req_Pid, opts ...client.CallOption) (*RspLogs, error) {
+	req := c.c.NewRequest(c.name, "BorrowLogs.FindByPID", in)
+	out := new(RspLogs)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *borrowLogsService) FindByID(ctx context.Context, in *Req_Id, opts ...client.CallOption) (*Rsp_Log, error) {
+	req := c.c.NewRequest(c.name, "BorrowLogs.FindByID", in)
+	out := new(Rsp_Log)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for BorrowLogs service
 
 type BorrowLogsHandler interface {
 	ToOther(context.Context, *ReqToOther, *Rsp_All) error
 	Confirm(context.Context, *Req_Confirm, *Rsp_All) error
+	FindAll(context.Context, *Req_Null, *RspLogs) error
+	FindByWID(context.Context, *Req_Wid, *RspLogs) error
+	FindByPID(context.Context, *Req_Pid, *RspLogs) error
+	FindByID(context.Context, *Req_Id, *Rsp_Log) error
 }
 
 func RegisterBorrowLogsHandler(s server.Server, hdlr BorrowLogsHandler, opts ...server.HandlerOption) error {
 	type borrowLogs interface {
 		ToOther(ctx context.Context, in *ReqToOther, out *Rsp_All) error
 		Confirm(ctx context.Context, in *Req_Confirm, out *Rsp_All) error
+		FindAll(ctx context.Context, in *Req_Null, out *RspLogs) error
+		FindByWID(ctx context.Context, in *Req_Wid, out *RspLogs) error
+		FindByPID(ctx context.Context, in *Req_Pid, out *RspLogs) error
+		FindByID(ctx context.Context, in *Req_Id, out *Rsp_Log) error
 	}
 	type BorrowLogs struct {
 		borrowLogs
@@ -115,4 +167,20 @@ func (h *borrowLogsHandler) ToOther(ctx context.Context, in *ReqToOther, out *Rs
 
 func (h *borrowLogsHandler) Confirm(ctx context.Context, in *Req_Confirm, out *Rsp_All) error {
 	return h.BorrowLogsHandler.Confirm(ctx, in, out)
+}
+
+func (h *borrowLogsHandler) FindAll(ctx context.Context, in *Req_Null, out *RspLogs) error {
+	return h.BorrowLogsHandler.FindAll(ctx, in, out)
+}
+
+func (h *borrowLogsHandler) FindByWID(ctx context.Context, in *Req_Wid, out *RspLogs) error {
+	return h.BorrowLogsHandler.FindByWID(ctx, in, out)
+}
+
+func (h *borrowLogsHandler) FindByPID(ctx context.Context, in *Req_Pid, out *RspLogs) error {
+	return h.BorrowLogsHandler.FindByPID(ctx, in, out)
+}
+
+func (h *borrowLogsHandler) FindByID(ctx context.Context, in *Req_Id, out *Rsp_Log) error {
+	return h.BorrowLogsHandler.FindByID(ctx, in, out)
 }

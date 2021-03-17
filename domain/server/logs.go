@@ -1,6 +1,9 @@
 package server
 
-import "github.com/PonyWilliam/go-borrow-logs/domain/repository"
+import (
+	"github.com/PonyWilliam/go-borrow-logs/domain/model"
+	"github.com/PonyWilliam/go-borrow-logs/domain/repository"
+)
 
 /*
 	service borrowLogs {
@@ -11,6 +14,10 @@ import "github.com/PonyWilliam/go-borrow-logs/domain/repository"
 type IBorrowLogsService interface {
 	ToOther(ReqWID int64,RspWID int64,PID int64,Reason string)error
 	Confirm(ID int64)error
+	FindAll() ([]model.BorrowLogs,error)
+	FindByID(id int64) (model.BorrowLogs,error)
+	FindByWID(wid int64)([]model.BorrowLogs,error)
+	FindByPID(pid int64)([]model.BorrowLogs,error)
 }
 func NewLogsService(log repository.ILogs)IBorrowLogsService{
 	return &LogsServices{log}
@@ -23,4 +30,16 @@ func(l *LogsServices)ToOther(ReqWID int64,RspWID int64,PID int64,Reason string)e
 }
 func(l *LogsServices)Confirm(ID int64)error{
 	return l.Logs.Confirm(ID)
+}
+func(l *LogsServices)FindAll() ([]model.BorrowLogs,error){
+	return l.Logs.FindAll()
+}
+func(l *LogsServices)FindByID(id int64) (model.BorrowLogs,error){
+	return l.Logs.FindByID(id)
+}
+func(l *LogsServices)FindByWID(wid int64) ([]model.BorrowLogs,error){
+	return l.Logs.FindByWID(wid)
+}
+func(l *LogsServices)FindByPID(pid int64) ([]model.BorrowLogs,error){
+	return l.Logs.FindByPID(pid)
 }
