@@ -20,12 +20,12 @@ func main() {
 	// New Service
 	consulRegistry := consul.NewRegistry(
 		func(options *registry.Options) {
-			options.Addrs = []string{"0.0.0.0"}
+			options.Addrs = []string{"127.0.0.1"}
 			options.Timeout = time.Second * 10
 
 		})
 	service := micro.NewService(
-		micro.Name("go.micro.service.borrowLogs"),
+		micro.Name("go.micro.service.borrowlog"),
 		micro.Version("latest"),
 		micro.Address("0.0.0.0:8089"),
 		micro.Registry(consulRegistry),

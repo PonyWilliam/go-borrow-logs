@@ -13,7 +13,7 @@
       <change beforePath="$PROJECT_DIR$/../borrow/proto/borrow.pb.micro.go" beforeDir="false" afterPath="$PROJECT_DIR$/../borrow/proto/borrow.pb.micro.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../borrow/proto/borrow.proto" beforeDir="false" afterPath="$PROJECT_DIR$/../borrow/proto/borrow.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/domain/repository/logs.go" beforeDir="false" afterPath="$PROJECT_DIR$/domain/repository/logs.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../category/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../category/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../category/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../category/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../category/domain/model/category.go" beforeDir="false" afterPath="$PROJECT_DIR$/../category/domain/model/category.go" afterDir="false" />
@@ -82,7 +82,7 @@
       <recent name="$PROJECT_DIR$/proto" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Build.go build main.go">
     <configuration name="go build github.com/PonyWilliam/go-borrow-logs" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="borrowLogs" />
       <working_directory value="$PROJECT_DIR$" />
@@ -92,8 +92,18 @@
       <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
+    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="borrowLogs" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/main.go" />
+      <package value="github.com/PonyWilliam/go-borrow-logs" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build main.go" />
         <item itemvalue="Go Build.go build github.com/PonyWilliam/go-borrow-logs" />
       </list>
     </recent_temporary>
