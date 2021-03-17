@@ -8,6 +8,10 @@ type ILogs interface {
 	InitTable() error
 	ToOther(int64,int64,int64,string) error
 	Confirm(int64) error
+	//FIndAll() ([]*model.BorrowLogs,error)
+	//FindByID(id int64) (*model.BorrowLogs,error)
+	//FindByWID(wid int64)([]*model.BorrowLogs,error)
+	//FindByPID(pid int64)([]*model.BorrowLogs,error)
 }
 func NewBorrowLogsRepository(db *gorm.DB)ILogs{
 	return &BorrowLogsRepository{mysqlDB: db}
