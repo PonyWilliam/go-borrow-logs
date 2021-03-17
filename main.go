@@ -2,39 +2,44 @@ package main
 
 import (
 	"github.com/PonyWilliam/go-borrow-logs/domain/repository"
-	"github.com/PonyWilliam/go-borrow-logs/domain/server"
+	services2 "github.com/PonyWilliam/go-borrow-logs/domain/server"
 	"github.com/PonyWilliam/go-borrow-logs/handler"
-	Proto "github.com/PonyWilliam/go-borrow-logs/proto"
+	works "github.com/PonyWilliam/go-borrow-logs/proto"
+	"strconv"
+	"time"
+
 	common "github.com/PonyWilliam/go-common"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"github.com/micro/go-micro/v2"
-	log "github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-micro/v2/registry"
-	consul "github.com/micro/go-plugins/registry/consul/v2"
-	"strconv"
-	"time"
+	"github.com/micro/go-micro/v2/util/log"
+	"github.com/micro/go-plugins/registry/consul/v2"
+	ratelimit "github.com/micro/go-plugins/wrapper/ratelimiter/uber/v2"
 )
-
+var QPS = 1000
 func main() {
-	// New Service
-	consulRegistry := consul.NewRegistry(
-		func(options *registry.Options) {
-			options.Addrs = []string{"127.0.0.1"}
-			options.Timeout = time.Second * 10
-
-		})
-	service := micro.NewService(
-		micro.Name("go.micro.service.borrowlog"),
-		micro.Version("latest"),
-		micro.Address("0.0.0.0:8089"),
-		micro.Registry(consulRegistry),
-	)
 	consulConfig,err := common.GetConsualConfig("127.0.0.1",8500,"/micro/config")
-	mysqlInfo := common.GetMysqlFromConsul(consulConfig,"mysql")
-	if err!=nil{
+	//配置中心
+	if err != nil{
 		log.Fatal(err)
 	}
+	//注册中心
+	consulRegistry := consul.NewRegistry(
+		func(options *registry.Options){
+			options.Addrs = []string{"127.0.0.1"}
+			options.Timeout = time.Second * 10
+		},
+	)
+
+	srv := micro.NewService(
+		micro.Name("go.micro.service.borrowlog"),
+		micro.Version("latest"),
+		micro.Address("127.0.0.1:8089"),
+		micro.Registry(consulRegistry),
+		micro.WrapHandler(ratelimit.NewHandlerWrapper(QPS)),
+	)
+	mysqlInfo := common.GetMysqlFromConsul(consulConfig,"mysql")
 	db,err := gorm.Open("mysql",
 		mysqlInfo.User+":"+mysqlInfo.Pwd+"@tcp("+mysqlInfo.Host + ":"+ strconv.FormatInt(mysqlInfo.Port,10) +")/"+mysqlInfo.DataBase+"?charset=utf8&parseTime=True&loc=Local",
 	)
@@ -44,24 +49,19 @@ func main() {
 	}
 	defer db.Close()
 	db.SingularTable(true)
+	srv.Init()
 	rp := repository.NewBorrowLogsRepository(db)
-	err = rp.InitTable()
-	if err != nil{
-		log.Fatal(err)
-	}
-
-	// Initialise service
-	service.Init()
-	err = Proto.RegisterBorrowLogsHandler(service.Server(),&handler.Logs{LogsServices: server.NewLogsService(rp)})
+	err =rp.InitTable()
 	if err!=nil{
-		log.Fatal(err)
+		err := rp.InitTable()
+		if err!=nil{
+			log.Error(err)
+		}
 	}
-	// Register Handler
-	//_ = borrowLogs.RegisterBorrowLogsHandler(service.Server(), new(handler))
 
-	// Register Struct as Subscriber
-	// Run service
-	if err := service.Run(); err != nil {
+	LogServices := services2.NewLogsService(repository.NewBorrowLogsRepository(db))
+	err = works.RegisterBorrowLogsHandler(srv.Server(),&handler.Logs{LogsServices:LogServices})
+	if err:=srv.Run();err!=nil{
 		log.Fatal(err)
 	}
 }

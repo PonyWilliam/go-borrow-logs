@@ -12,7 +12,7 @@ package borrowLogs;
 option go_package = "proto;borrowLogs";
 
 service borrowLogs {
-	rpc to_other(Req_to_other)returns(Rsp_All);
+	rpc ToOther(Req_to_other)returns(Rsp_All);
 	rpc confirm(Req_Confirm)returns(Rsp_All);
 }
 message Req_to_other{

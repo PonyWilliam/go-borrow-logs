@@ -67,7 +67,7 @@ func NewBorrowLogsService(name string, c client.Client) BorrowLogsService {
 }
 
 func (c *borrowLogsService) ToOther(ctx context.Context, in *ReqToOther, opts ...client.CallOption) (*Rsp_All, error) {
-	req := c.c.NewRequest(c.name, "BorrowLogs.to_other", in)
+	req := c.c.NewRequest(c.name, "BorrowLogs.ToOther", in)
 	out := new(Rsp_All)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
