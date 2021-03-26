@@ -1,0 +1,72 @@
+syntax = "proto3";
+/*
+	ID int64 `gorm:"primary_key;auto_increment;not_null" json:"id"`
+	ReqWID int64 `json:"req_wid"`//转借者ID
+	RspWID int64 `json:"rsp_wid"`//收到者ID
+	Confirm bool `json:"confirm"`//对方是否已确认
+	Reason string `json:"reason"`//原因说明
+	Boss int8 `json:"boss"`//是否需要boss确认，1代表不需要，2代表需要且未确认，3代表需要且确认
+*/
+package borrowLogs;
+
+option go_package = "proto;borrowLogs";
+
+service borrowLogs {
+	rpc ToOther(Req_to_other)returns(Rsp_All);
+	rpc confirm(Req_Confirm)returns(Rsp_All);
+	rpc FindAll(Req_Null)returns(Rsp_logs);
+	rpc FindByWID(Req_Wid)returns(Rsp_logs);
+	rpc FindByPID(Req_Pid)returns(Rsp_logs);
+	rpc FindByID(Req_Id)returns(Rsp_Log);
+	rpc FindByLogID(Req_LogID)returns(Rsp_logs);
+}
+message Req_Null{}
+message Req_LogID{
+	int64 logid = 1;
+}
+message Req_Id{
+	int64 id = 1;
+}
+message Req_Wid{
+	int64 wid = 1;
+}
+message Req_Pid{
+	int64 pid = 1;
+}
+message Rsp_Log{
+	/*
+		type BorrowLogs struct{
+		ID int64 `gorm:"primary_key;auto_increment;not_null" json:"id"`
+		ReqWID int64 `json:"req_wid"`//转借者ID
+		RspWID int64 `json:"rsp_wid"`//收到者ID
+		PID int64 `json:"pid"`//转借商品ID
+		Confirm bool `json:"confirm"`//对方是否已确认
+		Reason string `json:"reason"`//原因说明
+		Boss int8 `json:"boss"`//是否需要boss确认，1代表不需要，2代表需要且未确认，3代表需要且确认
+		Hashcode string `json:"hashcode"`//区块链确认，暂时不用
+	}
+	*/
+	int64 id = 1;
+	int64 ReqWID = 2;
+	int64 RspWID = 3;
+	int64 PID = 4;
+	bool Confirm = 5;
+	string Reason = 6;
+	int64 Boss = 7;
+}
+message Rsp_logs{
+	repeated Rsp_Log logs = 1;
+}
+message Req_to_other{
+	int64 ReqWID = 1;
+	int64 RspWID = 2;
+	int64 PID = 3;//产品ID
+	string Reason = 4;
+}
+message Req_Confirm{
+	int64 ID = 1;//根据ID确认同意
+}
+message Rsp_All{
+	bool status = 1;//是否成功
+	string message = 2;
+}
