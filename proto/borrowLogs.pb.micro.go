@@ -52,6 +52,7 @@ func NewBorrowLogsEndpoints() []*api.Endpoint {
 type BorrowLogsService interface {
 	ToOther(ctx context.Context, in *ReqToOther, opts ...client.CallOption) (*Rsp_All, error)
 	Confirm(ctx context.Context, in *Req_Confirm, opts ...client.CallOption) (*Rsp_All, error)
+	Reject(ctx context.Context, in *Req_Reject, opts ...client.CallOption) (*Rsp_All, error)
 	FindAll(ctx context.Context, in *Req_Null, opts ...client.CallOption) (*RspLogs, error)
 	FindByWID(ctx context.Context, in *Req_Wid, opts ...client.CallOption) (*RspLogs, error)
 	FindByPID(ctx context.Context, in *Req_Pid, opts ...client.CallOption) (*RspLogs, error)
@@ -82,7 +83,17 @@ func (c *borrowLogsService) ToOther(ctx context.Context, in *ReqToOther, opts ..
 }
 
 func (c *borrowLogsService) Confirm(ctx context.Context, in *Req_Confirm, opts ...client.CallOption) (*Rsp_All, error) {
-	req := c.c.NewRequest(c.name, "BorrowLogs.confirm", in)
+	req := c.c.NewRequest(c.name, "BorrowLogs.Confirm", in)
+	out := new(Rsp_All)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *borrowLogsService) Reject(ctx context.Context, in *Req_Reject, opts ...client.CallOption) (*Rsp_All, error) {
+	req := c.c.NewRequest(c.name, "BorrowLogs.Reject", in)
 	out := new(Rsp_All)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -146,6 +157,7 @@ func (c *borrowLogsService) FindByLogID(ctx context.Context, in *Req_LogID, opts
 type BorrowLogsHandler interface {
 	ToOther(context.Context, *ReqToOther, *Rsp_All) error
 	Confirm(context.Context, *Req_Confirm, *Rsp_All) error
+	Reject(context.Context, *Req_Reject, *Rsp_All) error
 	FindAll(context.Context, *Req_Null, *RspLogs) error
 	FindByWID(context.Context, *Req_Wid, *RspLogs) error
 	FindByPID(context.Context, *Req_Pid, *RspLogs) error
@@ -157,6 +169,7 @@ func RegisterBorrowLogsHandler(s server.Server, hdlr BorrowLogsHandler, opts ...
 	type borrowLogs interface {
 		ToOther(ctx context.Context, in *ReqToOther, out *Rsp_All) error
 		Confirm(ctx context.Context, in *Req_Confirm, out *Rsp_All) error
+		Reject(ctx context.Context, in *Req_Reject, out *Rsp_All) error
 		FindAll(ctx context.Context, in *Req_Null, out *RspLogs) error
 		FindByWID(ctx context.Context, in *Req_Wid, out *RspLogs) error
 		FindByPID(ctx context.Context, in *Req_Pid, out *RspLogs) error
@@ -180,6 +193,10 @@ func (h *borrowLogsHandler) ToOther(ctx context.Context, in *ReqToOther, out *Rs
 
 func (h *borrowLogsHandler) Confirm(ctx context.Context, in *Req_Confirm, out *Rsp_All) error {
 	return h.BorrowLogsHandler.Confirm(ctx, in, out)
+}
+
+func (h *borrowLogsHandler) Reject(ctx context.Context, in *Req_Reject, out *Rsp_All) error {
+	return h.BorrowLogsHandler.Reject(ctx, in, out)
 }
 
 func (h *borrowLogsHandler) FindAll(ctx context.Context, in *Req_Null, out *RspLogs) error {

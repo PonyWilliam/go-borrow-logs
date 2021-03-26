@@ -13,6 +13,7 @@ type ILogs interface {
 	FindByWID(wid int64)([]model.BorrowLogs,error)
 	FindByPID(pid int64)([]model.BorrowLogs,error)
 	FindByLogID(logid int64)([]model.BorrowLogs,error)
+	Reject(id int64) error
 }
 func NewBorrowLogsRepository(db *gorm.DB)ILogs{
 	return &BorrowLogsRepository{mysqlDB: db}
@@ -32,14 +33,19 @@ func(b *BorrowLogsRepository) ToOther(ReqWID int64,RspWID int64,PID int64,Reason
 		RspWID: RspWID,
 		PID: PID,
 		Reason: Reason,
-		Confirm: false,
+		Confirm: 1,
 		Logid:Logid,
 	}).Error
 }
 func(b *BorrowLogsRepository) Confirm(id int64)error{
 	logs := &model.BorrowLogs{}
 	b.mysqlDB.Where("id = ?",id).First(&logs)
-	return b.mysqlDB.Model(logs).Update("Confirm",true).Error
+	return b.mysqlDB.Model(logs).Update("Confirm",2).Error
+}
+func(b *BorrowLogsRepository) Reject(id int64) error{
+	logs := &model.BorrowLogs{}
+	b.mysqlDB.Where("id = ?",id).First(&logs)
+	return b.mysqlDB.Model(logs).Update("Confirm",3).Error
 }
 func(b *BorrowLogsRepository) FindAll() (logs []model.BorrowLogs,err error){
 	return logs,b.mysqlDB.Model(&logs).Find(&logs).Error

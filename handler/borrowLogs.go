@@ -36,6 +36,17 @@ func(l *Logs)Confirm(ctx context.Context,req *borrowLogs.Req_Confirm,rsp *borrow
 	rsp.Status = true
 	return nil
 }
+func(l *Logs)Reject(ctx context.Context,req *borrowLogs.Req_Reject,rsp *borrowLogs.Rsp_All)error{
+	err := l.LogsServices.Reject(req.ID)
+	if err!=nil{
+		rsp.Message = err.Error()
+		rsp.Status = false
+		return nil
+	}
+	rsp.Message = "成功"
+	rsp.Status = true
+	return nil
+}
 func(l *Logs)FindAll(ctx context.Context,req *borrowLogs.Req_Null,rsp *borrowLogs.RspLogs)error{
 	res,err := l.LogsServices.FindAll()
 	if err != nil{

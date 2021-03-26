@@ -19,6 +19,7 @@ type IBorrowLogsService interface {
 	FindByWID(wid int64)([]model.BorrowLogs,error)
 	FindByPID(pid int64)([]model.BorrowLogs,error)
 	FindByLogID(logid int64)([]model.BorrowLogs,error)
+	Reject(id int64)error
 }
 func NewLogsService(log repository.ILogs)IBorrowLogsService{
 	return &LogsServices{log}
@@ -31,6 +32,9 @@ func(l *LogsServices)ToOther(ReqWID int64,RspWID int64,PID int64,Reason string,L
 }
 func(l *LogsServices)Confirm(ID int64)error{
 	return l.Logs.Confirm(ID)
+}
+func(l *LogsServices)Reject(id int64) error{
+	return l.Logs.Reject(id)
 }
 func(l *LogsServices)FindAll() ([]model.BorrowLogs,error){
 	return l.Logs.FindAll()
