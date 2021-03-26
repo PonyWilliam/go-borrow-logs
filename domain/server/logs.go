@@ -12,7 +12,7 @@ import (
 	}
 */
 type IBorrowLogsService interface {
-	ToOther(ReqWID int64,RspWID int64,PID int64,Reason string)error
+	ToOther(ReqWID int64,RspWID int64,PID int64,Reason string,Logid int64)error
 	Confirm(ID int64)error
 	FindAll() ([]model.BorrowLogs,error)
 	FindByID(id int64) (model.BorrowLogs,error)
@@ -26,8 +26,8 @@ func NewLogsService(log repository.ILogs)IBorrowLogsService{
 type LogsServices struct{
 	Logs repository.ILogs
 }
-func(l *LogsServices)ToOther(ReqWID int64,RspWID int64,PID int64,Reason string)error{
-	return l.Logs.ToOther(ReqWID,RspWID,PID,Reason)
+func(l *LogsServices)ToOther(ReqWID int64,RspWID int64,PID int64,Reason string,Logid int64)error{
+	return l.Logs.ToOther(ReqWID,RspWID,PID,Reason,Logid)
 }
 func(l *LogsServices)Confirm(ID int64)error{
 	return l.Logs.Confirm(ID)

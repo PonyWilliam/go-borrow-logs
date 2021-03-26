@@ -6,7 +6,7 @@ import (
 )
 type ILogs interface {
 	InitTable() error
-	ToOther(int64,int64,int64,string) error
+	ToOther(int64,int64,int64,string,int64) error
 	Confirm(int64) error
 	FindAll() ([]model.BorrowLogs,error)
 	FindByID(id int64) (model.BorrowLogs,error)
@@ -26,13 +26,14 @@ func(b *BorrowLogsRepository) InitTable() error{
 	}
 	return b.mysqlDB.CreateTable(&model.BorrowLogs{}).Error
 }
-func(b *BorrowLogsRepository) ToOther(ReqWID int64,RspWID int64,PID int64,Reason string) error {
+func(b *BorrowLogsRepository) ToOther(ReqWID int64,RspWID int64,PID int64,Reason string,Logid int64) error {
 	return b.mysqlDB.Model(&model.BorrowLogs{}).Create(&model.BorrowLogs{
 		ReqWID: ReqWID,
 		RspWID: RspWID,
 		PID: PID,
 		Reason: Reason,
 		Confirm: false,
+		Logid:Logid,
 	}).Error
 }
 func(b *BorrowLogsRepository) Confirm(id int64)error{

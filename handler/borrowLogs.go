@@ -15,7 +15,7 @@ type Logs struct{
 	BossConfirm(ID int64)error
 */
 func(l *Logs)ToOther(ctx context.Context,req *borrowLogs.ReqToOther,rsp *borrowLogs.Rsp_All)error{
-	err := l.LogsServices.ToOther(req.ReqWID,req.RspWID,req.PID,req.Reason)
+	err := l.LogsServices.ToOther(req.ReqWID,req.RspWID,req.PID,req.Reason,req.Logid)
 	if err != nil{
 		rsp.Message = err.Error()
 		rsp.Status = false

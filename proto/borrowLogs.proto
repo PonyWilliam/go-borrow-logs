@@ -53,6 +53,7 @@ message Rsp_Log{
 	bool Confirm = 5;
 	string Reason = 6;
 	int64 Boss = 7;
+	int64 Logid = 8;
 }
 message Rsp_logs{
 	repeated Rsp_Log logs = 1;
@@ -62,6 +63,7 @@ message Req_to_other{
 	int64 RspWID = 2;
 	int64 PID = 3;//产品ID
 	string Reason = 4;
+	int64 Logid = 5;
 }
 message Req_Confirm{
 	int64 ID = 1;//根据ID确认同意
