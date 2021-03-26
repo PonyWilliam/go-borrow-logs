@@ -51,7 +51,7 @@ message Rsp_Log{
 	int64 ReqWID = 2;
 	int64 RspWID = 3;
 	int64 PID = 4;
-	bool Confirm = 5;
+	int64 Confirm = 5;
 	string Reason = 6;
 	int64 Boss = 7;
 	int64 Logid = 8;
