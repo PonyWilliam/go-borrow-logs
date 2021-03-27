@@ -40,9 +40,7 @@
       <change beforePath="$PROJECT_DIR$/../workApi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../workApi/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../workApi/handler/workApi.go" beforeDir="false" afterPath="$PROJECT_DIR$/../workApi/handler/workApi.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../workApi/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../workApi/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../works/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../works/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../works/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/../works/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../works/domain/repository/work_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/../works/domain/repository/work_repository.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../works/domain/server/work_server.go" beforeDir="false" afterPath="$PROJECT_DIR$/../works/domain/server/work_server.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../works/handler/works.go" beforeDir="false" afterPath="$PROJECT_DIR$/../works/handler/works.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../works/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../works/main.go" afterDir="false" />

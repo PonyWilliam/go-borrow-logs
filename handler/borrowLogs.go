@@ -2,9 +2,9 @@ package handler
 
 import (
 	"context"
+	"github.com/PonyWilliam/go-borrow-logs/domain/model"
 	"github.com/PonyWilliam/go-borrow-logs/domain/server"
 	borrowLogs "github.com/PonyWilliam/go-borrow-logs/proto"
-	"github.com/PonyWilliam/go-common"
 )
 
 type Logs struct{
@@ -55,7 +55,7 @@ func(l *Logs)FindAll(ctx context.Context,req *borrowLogs.Req_Null,rsp *borrowLog
 	}
 	temp := &borrowLogs.Rsp_Log{}
 	for _,v := range res{
-		_ = common.SwapTo(v, temp)
+		temp = Swap(v)
 		rsp.Logs = append(rsp.Logs,temp)
 	}
 	return nil
@@ -68,7 +68,7 @@ func(l *Logs)FindByWID(ctx context.Context,req *borrowLogs.Req_Wid,rsp *borrowLo
 	}
 	temp := &borrowLogs.Rsp_Log{}
 	for _,v := range res{
-		_ = common.SwapTo(v, temp)
+		temp = Swap(v)
 		rsp.Logs = append(rsp.Logs,temp)
 	}
 	return nil
@@ -81,7 +81,7 @@ func(l *Logs)FindByPID(ctx context.Context,req *borrowLogs.Req_Pid,rsp *borrowLo
 	}
 	temp := &borrowLogs.Rsp_Log{}
 	for _,v := range res{
-		_ = common.SwapTo(v, temp)
+		temp = Swap(v)
 		rsp.Logs = append(rsp.Logs,temp)
 	}
 	return nil
@@ -92,7 +92,7 @@ func(l *Logs)FindByID(ctx context.Context,req *borrowLogs.Req_Id,rsp *borrowLogs
 		rsp = nil
 		return nil
 	}
-	_ = common.SwapTo(res, rsp)
+	rsp = Swap(res)
 	return nil
 }
 func(l *Logs)FindByLogID(ctx context.Context,req *borrowLogs.Req_LogID,rsp *borrowLogs.RspLogs) error{
@@ -103,8 +103,21 @@ func(l *Logs)FindByLogID(ctx context.Context,req *borrowLogs.Req_LogID,rsp *borr
 	}
 	temp := &borrowLogs.Rsp_Log{}
 	for _,v := range res{
-		_ = common.SwapTo(v, temp)
+		temp = Swap(v)
 		rsp.Logs = append(rsp.Logs,temp)
 	}
 	return nil
+}
+
+func Swap(req model.BorrowLogs)  *borrowLogs.Rsp_Log{
+	rsp := &borrowLogs.Rsp_Log{}
+	rsp.RspWID = req.RspWID
+	rsp.Confirm = req.Confirm
+	rsp.Logid = req.Logid
+	rsp.Id = req.ID
+	rsp.PID = req.PID
+	rsp.Reason = req.Reason
+	rsp.ReqWID = req.ReqWID
+	rsp.RspWID = req.RspWID
+	return rsp
 }
