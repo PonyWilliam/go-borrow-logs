@@ -16,7 +16,8 @@ type IBorrowLogsService interface {
 	Confirm(ID int64)error
 	FindAll() ([]model.BorrowLogs,error)
 	FindByID(id int64) (model.BorrowLogs,error)
-	FindByWID(wid int64)([]model.BorrowLogs,error)
+	FindByReqWID(wid int64)([]model.BorrowLogs,error)
+	FindByRspWID(wid int64)([]model.BorrowLogs,error)
 	FindByPID(pid int64)([]model.BorrowLogs,error)
 	FindByLogID(logid int64)([]model.BorrowLogs,error)
 	Reject(id int64)error
@@ -42,8 +43,11 @@ func(l *LogsServices)FindAll() ([]model.BorrowLogs,error){
 func(l *LogsServices)FindByID(id int64) (model.BorrowLogs,error){
 	return l.Logs.FindByID(id)
 }
-func(l *LogsServices)FindByWID(wid int64) ([]model.BorrowLogs,error){
-	return l.Logs.FindByWID(wid)
+func(l *LogsServices)FindByReqWID(wid int64) ([]model.BorrowLogs,error){
+	return l.Logs.FindByReqWID(wid)
+}
+func(l *LogsServices)FindByRspWID(wid int64) ([]model.BorrowLogs,error){
+	return l.Logs.FindByRspWID(wid)
 }
 func(l *LogsServices)FindByPID(pid int64) ([]model.BorrowLogs,error){
 	return l.Logs.FindByPID(pid)

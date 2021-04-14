@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"fmt"
 	"github.com/PonyWilliam/go-borrow-logs/domain/model"
 	"github.com/PonyWilliam/go-borrow-logs/domain/server"
 	borrowLogs "github.com/PonyWilliam/go-borrow-logs/proto"
@@ -53,22 +54,37 @@ func(l *Logs)FindAll(ctx context.Context,req *borrowLogs.Req_Null,rsp *borrowLog
 		rsp.Logs = nil
 		return nil
 	}
-	temp := &borrowLogs.Rsp_Log{}
 	for _,v := range res{
-		temp = Swap(v)
+		temp := &borrowLogs.Rsp_Log{}
+		Swap(v,temp)
 		rsp.Logs = append(rsp.Logs,temp)
+		fmt.Println(rsp.Logs)
 	}
+	fmt.Println(rsp.Logs)
 	return nil
 }
-func(l *Logs)FindByWID(ctx context.Context,req *borrowLogs.Req_Wid,rsp *borrowLogs.RspLogs)error{
-	res,err := l.LogsServices.FindByWID(req.Wid)
+func(l *Logs)FindByReqWID(ctx context.Context,req *borrowLogs.Req_Wid,rsp *borrowLogs.RspLogs)error{
+	res,err := l.LogsServices.FindByReqWID(req.Wid)
 	if err != nil{
 		rsp.Logs = nil
 		return nil
 	}
-	temp := &borrowLogs.Rsp_Log{}
 	for _,v := range res{
-		temp = Swap(v)
+		temp := &borrowLogs.Rsp_Log{}
+		Swap(v,temp)
+		rsp.Logs = append(rsp.Logs,temp)
+	}
+	return nil
+}
+func(l *Logs)FindByRspWID(ctx context.Context,req *borrowLogs.Req_Wid,rsp *borrowLogs.RspLogs)error{
+	res,err := l.LogsServices.FindByRspWID(req.Wid)
+	if err != nil{
+		rsp.Logs = nil
+		return nil
+	}
+	for _,v := range res{
+		temp := &borrowLogs.Rsp_Log{}
+		Swap(v,temp)
 		rsp.Logs = append(rsp.Logs,temp)
 	}
 	return nil
@@ -79,9 +95,10 @@ func(l *Logs)FindByPID(ctx context.Context,req *borrowLogs.Req_Pid,rsp *borrowLo
 		rsp.Logs = nil
 		return nil
 	}
-	temp := &borrowLogs.Rsp_Log{}
 	for _,v := range res{
-		temp = Swap(v)
+		temp := &borrowLogs.Rsp_Log{}
+		temp = nil
+		Swap(v,temp)
 		rsp.Logs = append(rsp.Logs,temp)
 	}
 	return nil
@@ -90,9 +107,10 @@ func(l *Logs)FindByID(ctx context.Context,req *borrowLogs.Req_Id,rsp *borrowLogs
 	res,err := l.LogsServices.FindByID(req.Id)
 	if err != nil{
 		rsp = nil
-		return nil
+		return err
 	}
-	rsp = Swap(res)
+	Swap(res,rsp)
+	fmt.Println(rsp)
 	return nil
 }
 func(l *Logs)FindByLogID(ctx context.Context,req *borrowLogs.Req_LogID,rsp *borrowLogs.RspLogs) error{
@@ -101,16 +119,15 @@ func(l *Logs)FindByLogID(ctx context.Context,req *borrowLogs.Req_LogID,rsp *borr
 		rsp.Logs = nil
 		return nil
 	}
-	temp := &borrowLogs.Rsp_Log{}
 	for _,v := range res{
-		temp = Swap(v)
+		temp := &borrowLogs.Rsp_Log{}
+		Swap(v,temp)
 		rsp.Logs = append(rsp.Logs,temp)
 	}
 	return nil
 }
 
-func Swap(req model.BorrowLogs)  *borrowLogs.Rsp_Log{
-	rsp := &borrowLogs.Rsp_Log{}
+func Swap(req model.BorrowLogs,rsp *borrowLogs.Rsp_Log){
 	rsp.RspWID = req.RspWID
 	rsp.Confirm = req.Confirm
 	rsp.Logid = req.Logid
@@ -118,6 +135,5 @@ func Swap(req model.BorrowLogs)  *borrowLogs.Rsp_Log{
 	rsp.PID = req.PID
 	rsp.Reason = req.Reason
 	rsp.ReqWID = req.ReqWID
-	rsp.RspWID = req.RspWID
-	return rsp
+	rsp.Boss = req.Boss
 }

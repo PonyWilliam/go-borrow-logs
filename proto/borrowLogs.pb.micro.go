@@ -54,7 +54,8 @@ type BorrowLogsService interface {
 	Confirm(ctx context.Context, in *Req_Confirm, opts ...client.CallOption) (*Rsp_All, error)
 	Reject(ctx context.Context, in *Req_Reject, opts ...client.CallOption) (*Rsp_All, error)
 	FindAll(ctx context.Context, in *Req_Null, opts ...client.CallOption) (*RspLogs, error)
-	FindByWID(ctx context.Context, in *Req_Wid, opts ...client.CallOption) (*RspLogs, error)
+	FindByReqWID(ctx context.Context, in *Req_Wid, opts ...client.CallOption) (*RspLogs, error)
+	FindByRspWID(ctx context.Context, in *Req_Wid, opts ...client.CallOption) (*RspLogs, error)
 	FindByPID(ctx context.Context, in *Req_Pid, opts ...client.CallOption) (*RspLogs, error)
 	FindByID(ctx context.Context, in *Req_Id, opts ...client.CallOption) (*Rsp_Log, error)
 	FindByLogID(ctx context.Context, in *Req_LogID, opts ...client.CallOption) (*RspLogs, error)
@@ -112,8 +113,18 @@ func (c *borrowLogsService) FindAll(ctx context.Context, in *Req_Null, opts ...c
 	return out, nil
 }
 
-func (c *borrowLogsService) FindByWID(ctx context.Context, in *Req_Wid, opts ...client.CallOption) (*RspLogs, error) {
-	req := c.c.NewRequest(c.name, "BorrowLogs.FindByWID", in)
+func (c *borrowLogsService) FindByReqWID(ctx context.Context, in *Req_Wid, opts ...client.CallOption) (*RspLogs, error) {
+	req := c.c.NewRequest(c.name, "BorrowLogs.FindByReqWID", in)
+	out := new(RspLogs)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *borrowLogsService) FindByRspWID(ctx context.Context, in *Req_Wid, opts ...client.CallOption) (*RspLogs, error) {
+	req := c.c.NewRequest(c.name, "BorrowLogs.FindByRspWID", in)
 	out := new(RspLogs)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -159,7 +170,8 @@ type BorrowLogsHandler interface {
 	Confirm(context.Context, *Req_Confirm, *Rsp_All) error
 	Reject(context.Context, *Req_Reject, *Rsp_All) error
 	FindAll(context.Context, *Req_Null, *RspLogs) error
-	FindByWID(context.Context, *Req_Wid, *RspLogs) error
+	FindByReqWID(context.Context, *Req_Wid, *RspLogs) error
+	FindByRspWID(context.Context, *Req_Wid, *RspLogs) error
 	FindByPID(context.Context, *Req_Pid, *RspLogs) error
 	FindByID(context.Context, *Req_Id, *Rsp_Log) error
 	FindByLogID(context.Context, *Req_LogID, *RspLogs) error
@@ -171,7 +183,8 @@ func RegisterBorrowLogsHandler(s server.Server, hdlr BorrowLogsHandler, opts ...
 		Confirm(ctx context.Context, in *Req_Confirm, out *Rsp_All) error
 		Reject(ctx context.Context, in *Req_Reject, out *Rsp_All) error
 		FindAll(ctx context.Context, in *Req_Null, out *RspLogs) error
-		FindByWID(ctx context.Context, in *Req_Wid, out *RspLogs) error
+		FindByReqWID(ctx context.Context, in *Req_Wid, out *RspLogs) error
+		FindByRspWID(ctx context.Context, in *Req_Wid, out *RspLogs) error
 		FindByPID(ctx context.Context, in *Req_Pid, out *RspLogs) error
 		FindByID(ctx context.Context, in *Req_Id, out *Rsp_Log) error
 		FindByLogID(ctx context.Context, in *Req_LogID, out *RspLogs) error
@@ -203,8 +216,12 @@ func (h *borrowLogsHandler) FindAll(ctx context.Context, in *Req_Null, out *RspL
 	return h.BorrowLogsHandler.FindAll(ctx, in, out)
 }
 
-func (h *borrowLogsHandler) FindByWID(ctx context.Context, in *Req_Wid, out *RspLogs) error {
-	return h.BorrowLogsHandler.FindByWID(ctx, in, out)
+func (h *borrowLogsHandler) FindByReqWID(ctx context.Context, in *Req_Wid, out *RspLogs) error {
+	return h.BorrowLogsHandler.FindByReqWID(ctx, in, out)
+}
+
+func (h *borrowLogsHandler) FindByRspWID(ctx context.Context, in *Req_Wid, out *RspLogs) error {
+	return h.BorrowLogsHandler.FindByRspWID(ctx, in, out)
 }
 
 func (h *borrowLogsHandler) FindByPID(ctx context.Context, in *Req_Pid, out *RspLogs) error {

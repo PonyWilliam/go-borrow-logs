@@ -16,7 +16,8 @@ service borrowLogs {
 	rpc Confirm(Req_Confirm)returns(Rsp_All);
 	rpc Reject(Req_Reject)returns(Rsp_All);
 	rpc FindAll(Req_Null)returns(Rsp_logs);
-	rpc FindByWID(Req_Wid)returns(Rsp_logs);
+	rpc FindByReqWID(Req_Wid)returns(Rsp_logs);
+	rpc FindByRspWID(Req_Wid)returns(Rsp_logs);
 	rpc FindByPID(Req_Pid)returns(Rsp_logs);
 	rpc FindByID(Req_Id)returns(Rsp_Log);
 	rpc FindByLogID(Req_LogID)returns(Rsp_logs);
