@@ -58,13 +58,13 @@ func(b *BorrowLogsRepository) FindByID(id int64) (log model.BorrowLogs,err error
 	return log,b.mysqlDB.Where("id = ?",id).Find(&log).Error
 }
 func(b *BorrowLogsRepository) FindByReqWID(wid int64) (logs []model.BorrowLogs,err error){
-	return  logs,b.mysqlDB.Where("req_wid = ?",wid).Find(&logs).Error
+	return  logs,b.mysqlDB.Where("req_w_id = ?",wid).Find(&logs).Error
 }
 func(b *BorrowLogsRepository) FindByRspWID(wid int64) (logs []model.BorrowLogs,err error){
-	return  logs,b.mysqlDB.Where("req_wid = ?",wid).Find(&logs).Error
+	return  logs,b.mysqlDB.Where("rsp_w_id = ?",wid).Find(&logs).Error
 }
 func(b *BorrowLogsRepository) FindByPID(pid int64) (logs []model.BorrowLogs,err error){
-	return  logs,b.mysqlDB.Where("pid = ?",pid).Find(&logs).Error
+	return  logs,b.mysqlDB.Where("p_id = ?",pid).Find(&logs).Error
 }
 func(b *BorrowLogsRepository) FindByLogID(logid int64)(logs []model.BorrowLogs,err error){
 	return logs,b.mysqlDB.Where("logid = ?",logid).Find(&logs).Error

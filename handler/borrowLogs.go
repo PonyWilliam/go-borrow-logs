@@ -136,4 +136,6 @@ func Swap(req model.BorrowLogs,rsp *borrowLogs.Rsp_Log){
 	rsp.Reason = req.Reason
 	rsp.ReqWID = req.ReqWID
 	rsp.Boss = req.Boss
+	rsp.Time = req.Time
+	rsp.RspTime = req.RspTime
 }

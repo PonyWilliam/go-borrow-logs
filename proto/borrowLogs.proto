@@ -56,6 +56,8 @@ message Rsp_Log{
 	string Reason = 6;
 	int64 Boss = 7;
 	int64 Logid = 8;
+	int64 Time = 9;
+	int64 RspTime = 10;
 }
 message Rsp_logs{
 	repeated Rsp_Log logs = 1;
