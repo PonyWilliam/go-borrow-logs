@@ -5,6 +5,7 @@ import (
 	services2 "github.com/PonyWilliam/go-borrow-logs/domain/server"
 	"github.com/PonyWilliam/go-borrow-logs/handler"
 	works "github.com/PonyWilliam/go-borrow-logs/proto"
+	"github.com/opentracing/opentracing-go"
 	"strconv"
 	"time"
 
@@ -15,11 +16,13 @@ import (
 	"github.com/micro/go-micro/v2/registry"
 	"github.com/micro/go-micro/v2/util/log"
 	"github.com/micro/go-plugins/registry/consul/v2"
+	"github.com/micro/go-plugins/wrapper/breaker/hystrix/v2"
+	"github.com/micro/go-plugins/wrapper/monitoring/prometheus/v2"
 	ratelimit "github.com/micro/go-plugins/wrapper/ratelimiter/uber/v2"
 )
 var QPS = 1000
 func main() {
-	consulConfig,err := common.GetConsualConfig("127.0.0.1",8500,"/micro/config")
+	consulConfig,err := common.GetConsualConfig("106.13.132.160",8500,"/micro/config")
 	//配置中心
 	if err != nil{
 		log.Fatal(err)
@@ -27,17 +30,24 @@ func main() {
 	//注册中心
 	consulRegistry := consul.NewRegistry(
 		func(options *registry.Options){
-			options.Addrs = []string{"127.0.0.1"}
+			options.Addrs = []string{"106.13.132.160"}
 			options.Timeout = time.Second * 10
 		},
 	)
-
+	t,io,err := common.NewTracer("go.micro.service.borrowlog",":6832")
+	if err != nil{
+		log.Fatal(err)
+	}
+	defer io.Close()
+	opentracing.SetGlobalTracer(t)
 	srv := micro.NewService(
 		micro.Name("go.micro.service.borrowlog"),
 		micro.Version("latest"),
-		micro.Address("127.0.0.1:8089"),
+		micro.Address(":15340"),
 		micro.Registry(consulRegistry),
 		micro.WrapHandler(ratelimit.NewHandlerWrapper(QPS)),
+		micro.WrapHandler(prometheus.NewHandlerWrapper()),
+		micro.WrapClient(hystrix.NewClientWrapper()),
 	)
 	mysqlInfo := common.GetMysqlFromConsul(consulConfig,"mysql")
 	db,err := gorm.Open("mysql",
@@ -50,6 +60,7 @@ func main() {
 	defer db.Close()
 	db.SingularTable(true)
 	srv.Init()
+	go common.PrometheusBoot("5001")//　协程
 	rp := repository.NewBorrowLogsRepository(db)
 	err =rp.InitTable()
 	if err!=nil{

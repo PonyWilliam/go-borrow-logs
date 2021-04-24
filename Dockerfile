@@ -1,3 +1,7 @@
-FROM alpine
-ADD borrowLogs-service /borrowLogs-service
-ENTRYPOINT [ "/borrowLogs-service" ]
+FROM alpine:latest
+
+RUN mkdir /app
+WORKDIR /app
+ADD borrowLog /app/borrowLog
+
+CMD ["./borrowLog"]

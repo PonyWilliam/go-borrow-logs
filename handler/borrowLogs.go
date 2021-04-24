@@ -54,13 +54,13 @@ func(l *Logs)FindAll(ctx context.Context,req *borrowLogs.Req_Null,rsp *borrowLog
 		rsp.Logs = nil
 		return nil
 	}
+	result := &borrowLogs.RspLogs{}
 	for _,v := range res{
 		temp := &borrowLogs.Rsp_Log{}
 		Swap(v,temp)
-		rsp.Logs = append(rsp.Logs,temp)
-		fmt.Println(rsp.Logs)
+		result.Logs = append(result.Logs,temp)
 	}
-	fmt.Println(rsp.Logs)
+	rsp.Logs = result.Logs
 	return nil
 }
 func(l *Logs)FindByReqWID(ctx context.Context,req *borrowLogs.Req_Wid,rsp *borrowLogs.RspLogs)error{
@@ -69,11 +69,13 @@ func(l *Logs)FindByReqWID(ctx context.Context,req *borrowLogs.Req_Wid,rsp *borro
 		rsp.Logs = nil
 		return nil
 	}
+	result := &borrowLogs.RspLogs{}
 	for _,v := range res{
 		temp := &borrowLogs.Rsp_Log{}
 		Swap(v,temp)
-		rsp.Logs = append(rsp.Logs,temp)
+		result.Logs = append(result.Logs,temp)
 	}
+	rsp.Logs = result.Logs
 	return nil
 }
 func(l *Logs)FindByRspWID(ctx context.Context,req *borrowLogs.Req_Wid,rsp *borrowLogs.RspLogs)error{
@@ -82,11 +84,13 @@ func(l *Logs)FindByRspWID(ctx context.Context,req *borrowLogs.Req_Wid,rsp *borro
 		rsp.Logs = nil
 		return nil
 	}
+	result := &borrowLogs.RspLogs{}
 	for _,v := range res{
 		temp := &borrowLogs.Rsp_Log{}
 		Swap(v,temp)
-		rsp.Logs = append(rsp.Logs,temp)
+		result.Logs = append(result.Logs,temp)
 	}
+	rsp.Logs = result.Logs
 	return nil
 }
 func(l *Logs)FindByPID(ctx context.Context,req *borrowLogs.Req_Pid,rsp *borrowLogs.RspLogs)error{
@@ -95,12 +99,13 @@ func(l *Logs)FindByPID(ctx context.Context,req *borrowLogs.Req_Pid,rsp *borrowLo
 		rsp.Logs = nil
 		return nil
 	}
+	result := &borrowLogs.RspLogs{}
 	for _,v := range res{
 		temp := &borrowLogs.Rsp_Log{}
-		temp = nil
 		Swap(v,temp)
-		rsp.Logs = append(rsp.Logs,temp)
+		result.Logs = append(result.Logs,temp)
 	}
+	rsp.Logs = result.Logs
 	return nil
 }
 func(l *Logs)FindByID(ctx context.Context,req *borrowLogs.Req_Id,rsp *borrowLogs.Rsp_Log)error{
@@ -119,11 +124,13 @@ func(l *Logs)FindByLogID(ctx context.Context,req *borrowLogs.Req_LogID,rsp *borr
 		rsp.Logs = nil
 		return nil
 	}
+	result := &borrowLogs.RspLogs{}
 	for _,v := range res{
 		temp := &borrowLogs.Rsp_Log{}
 		Swap(v,temp)
-		rsp.Logs = append(rsp.Logs,temp)
+		result.Logs = append(result.Logs,temp)
 	}
+	rsp.Logs = result.Logs
 	return nil
 }
 
