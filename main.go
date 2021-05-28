@@ -22,7 +22,7 @@ import (
 )
 var QPS = 1000
 func main() {
-	consulConfig,err := common.GetConsualConfig("106.13.132.160",8500,"/micro/config")
+	consulConfig,err := common.GetConsualConfig("1.116.62.214",8500,"/micro/config")
 	//配置中心
 	if err != nil{
 		log.Fatal(err)
@@ -30,7 +30,7 @@ func main() {
 	//注册中心
 	consulRegistry := consul.NewRegistry(
 		func(options *registry.Options){
-			options.Addrs = []string{"106.13.132.160"}
+			options.Addrs = []string{"1.116.62.214"}
 			options.Timeout = time.Second * 10
 		},
 	)

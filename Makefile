@@ -14,7 +14,6 @@ test:
 
 .PHONY: docker
 docker:
-	go build -o borrowLog main.go
 	docker build -t ponywilliam/go-borrow-log .
 	docker tag ponywilliam/go-borrow-log ponywilliam/go-borrow-log
 	docker push ponywilliam/go-borrow-log
